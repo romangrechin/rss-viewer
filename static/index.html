@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Rss Viewer</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <!-- MDB -->
+    <link rel="stylesheet" href="/static/css/mdb.min.css" />
+    <style>
+        html, body{
+            margin: 0 auto;
+        }
+        .container{
+            padding-top: 45px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!--Main layout-->
+<div class="container">
+    <form method="get" action="/">
+        <div class="form-outline mb-4">
+            <input type="search" name="q" class="form-control" id="search-input">
+            <label class="form-label" for="search-input">Search</label>
+            <input type="submit" hidden />
+        </div>
+    </form>
+
+    {{if gt .Count 0}}
+    {{range .Feeds}}
+    <section class="border-bottom pb-4 mb-5">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <span class="badge bg-danger px-2 py-1 shadow-1-strong mb-3">{{.Category}}</span>
+                <h4><strong>{{.Title}}</strong></h4>
+                <p class="text-muted">
+                    {{.Description}}
+                </p>
+                <a type="button" href="{{.SourceLink}}" class="btn btn-primary">Read more</a>
+            </div>
+        </div>
+    </section>
+    {{end}}
+    {{else}}
+    <section class="border-bottom pb-4 mb-5">
+        Ничего не найдено
+    </section>
+    {{end}}
+
+    <!-- Pagination -->
+    <nav class="my-4" aria-label="...">
+        <ul class="pagination pagination-circle justify-content-center">
+            <li class="page-item">
+                {{if .PrevPage }}
+                <a class="page-link" href="{{.PrevPage}}" tabindex="-1" aria-disabled="true">Previous</a>
+                {{end}}
+            </li>
+
+            {{if gt .Count 0}}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="">{{.Page}}<span class="sr-only">(current)</span></a>
+            </li>
+            {{end}}
+
+            <li class="page-item">
+                {{if .NextPage }}
+                <a class="page-link" href="{{.NextPage}}">Next</a>
+                {{end}}
+            </li>
+        </ul>
+    </nav>
+</div>
+<!--Main layout-->
+
+
+<!-- MDB -->
+<script type="text/javascript" src="/static/js/mdb.min.js"></script>
+<!-- Custom scripts -->
+<script type="text/javascript"></script>
+</body>
+
+</html>

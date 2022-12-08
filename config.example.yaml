@@ -1,0 +1,4 @@
+db_conn: "postgres://db_user:db_password@127.0.0.1:5432/db_name"
+address: ":8080"
+threads: 500
+source_timeout: 10s
